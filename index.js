@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import connectDb from './src/connectDb.js';
+// import connectDb from './src/connectDb.js';
 import userIns from './src/userService.js'
 
 const app = new express();
@@ -8,7 +8,12 @@ const app = new express();
 
 app.use(express.json())
 app.use(cors())
-connectDb()
+// connectDb()
+
+
+app.get("/",(req,res)=>{
+    return res.status(200).json({message:"Server is running on port 3000"})
+})
  
 app.post("/login",async(req,res)=>{
     try{
