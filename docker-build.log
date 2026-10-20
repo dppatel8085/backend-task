@@ -1,0 +1,66 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 156B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:20-alpine
+#2 DONE 1.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 87B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 674B done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#5 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 done
+#5 DONE 0.0s
+
+#6 [2/5] WORKDIR /app
+#6 CACHED
+
+#7 [3/5] COPY package*.json ./
+#7 DONE 0.0s
+
+#8 [4/5] RUN npm ci
+#8 1.508 npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+#8 1.658 npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+#8 2.007 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+#8 2.111 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+#8 2.177 npm warn deprecated gauge@3.0.2: This package is no longer supported.
+#8 2.474 npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+#8 12.47 npm error code ERR_SSL_CIPHER_OPERATION_FAILED
+#8 12.47 npm error 4852DD17B97B0000:error:1C800066:Provider routines:ossl_gcm_stream_update:cipher operation failed:../deps/openssl/openssl/providers/implementations/ciphers/ciphercommon_gcm.c:323:
+#8 12.47 npm error
+#8 12.47 npm notice
+#8 12.47 npm notice New major version of npm available! 10.8.2 -> 12.2.0
+#8 12.47 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+#8 12.47 npm notice To update run: npm install -g npm@12.2.0
+#8 12.47 npm notice
+#8 12.47 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-17T05_10_49_011Z-debug-0.log
+#8 ERROR: process "/bin/sh -c npm ci" did not complete successfully: exit code: 1
+------
+ > [4/5] RUN npm ci:
+2.474 npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+12.47 npm error code ERR_SSL_CIPHER_OPERATION_FAILED
+12.47 npm error 4852DD17B97B0000:error:1C800066:Provider routines:ossl_gcm_stream_update:cipher operation failed:../deps/openssl/openssl/providers/implementations/ciphers/ciphercommon_gcm.c:323:
+12.47 npm error
+12.47 npm notice
+12.47 npm notice New major version of npm available! 10.8.2 -> 12.2.0
+12.47 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+12.47 npm notice To update run: npm install -g npm@12.2.0
+12.47 npm notice
+12.47 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-17T05_10_49_011Z-debug-0.log
+------
+Dockerfile:8
+--------------------
+   6 |     COPY package*.json ./
+   7 |     
+   8 | >>> RUN npm ci
+   9 |     
+  10 |     COPY . .
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c npm ci" did not complete successfully: exit code: 1

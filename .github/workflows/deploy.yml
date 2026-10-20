@@ -1,0 +1,46 @@
+
+name: Backend CI-CD
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t devraj8085/backend-task:latest .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push image to Docker Hub
+        run: docker push devraj8085/backend-task:latest
+
+      - name: Deploy on AWS EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker pull devraj8085/backend-task:latest
+            sudo docker stop backend-task-container || true
+            sudo docker rm backend-task-container || true
+            sudo docker run -d \
+              --name backend-task-container \
+              --restart unless-stopped \
+              -p 3000:3000 \
+              devraj8085/backend-task:latest
+            sudo docker ps
