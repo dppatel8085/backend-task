@@ -73,7 +73,7 @@ app.delete('/:id', async(req, res) => {
         return res.status(400).json({ success: false, message: error?.message })
     }
 })
-
+ 
 app.listen(3000,()=>{
     console.log("Server is running on port 3000")
 })
